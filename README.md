@@ -1,5 +1,30 @@
 # Kelompok-1-KAV
 
+# Key Detection
+## 1. Representasi Chroma
+Data audio diubah menjadi fitur chroma 12 dimensi yang mewakili distribusi energi untuk setiap pitch class (C, C#, D, …, B). Untuk mendeteksi kunci global, diambil nilai rata-rata chroma sepanjang lagu.
+
+## 2. Profil Skala Krumhansl-Schmuckler
+Penggunaan 24 profil referensi (12 mayor dan 12 minor) yang berdasarkan dari bobot empiris penelitian Krumhansl-Schmuckler. Kemudian profil ini digeser dengan melingkar (circular shift) untuk dapat mencakup semua kemungkinan kunci dasar.
+
+## 3. Cosine Similarity dengan Profil
+Membandingkan rata-rata chroma dengan setiap profil dengan menggunakan cosine similarity. Nilai kesamaan tertinggi kemudian menunjukkan kunci yang paling mendekati distribusi pitch dari lagu.
+
+## 4. Estimasi 
+Hasil menunjukkan kunci dengan skor yang tertinggi yang menunjukkan bahwa kunci lagu dikenali  adalah C mayor yang memiliki skor kemiripan 0.880.
+
+# Chord Recognition
+## 1. Pembangunan Template Akor
+Template akor triad dibuat sebanyak 24 (12 mayor dan 12 minor). Masing-masing dari template dberikan representasi sebagai vektor 12 dimensi dengan bobot root (tinggi), fifth (sedang), dan third (sedikit lebih rendah). Kemudian template dasar digeser dengan melingkar agar dapat mencakup semua akor dari C hingga B.
+
+## 2. Normalisasi Template
+Setiap template dilakukan normalisasi agar perbandingan dari cosine similarity dapat lebih akurat dan tidak akan dipengaruhi oleh besar dan kecilnya energi.
+
+## 3. Pencocokan per Beat
+Dilakukan perbandingan representasi chroma per beat dengan seluruh template akor. Proses dari pencocokan dilakukan menggunakna cosine similarity yang kemudian akor yang memiliki nilai tertinggi dipilih sebagai hasil prediksi.
+
+## 4. Estimasi
+Hasil menunjukkan beat pertama dikenali sebagai C mayor yang memiliki skor 0.93, kemudian beat kedua yang dikenali sebagai F mayor yang memiliki skor 0.94. Hal ini menunjukkan bahwa sistem dapat mendeteksi progresi akor dan dapat dilakukan secara otomatis dengan tingkat keyakinan yang tinggi.
 
 # 🎵 Cover Song Identification with Chroma Features, OTI, and DTW
 
